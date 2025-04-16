@@ -74,8 +74,8 @@ These compare the predicted colorized image against the original ground truth (c
 ## 📷 Example
 
 Given a b&w image like this:
-![B&W image](imgs\image1.jpeg)
+![B&W image](imgs/image1.jpeg)
 
 The model returns an colored image:
-![Colored image](imgs_out\image1_output.jpeg)
+![Colored image](imgs_out/image1_output.jpeg)
 
