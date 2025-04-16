@@ -1,60 +1,81 @@
-<!--<h3><b>Colorful Image Colorization</b></h3>-->
-## <b>Colorful Image Colorization</b> [[Project Page]](http://richzhang.github.io/colorization/) <br>
-[Richard Zhang](https://richzhang.github.io/), [Phillip Isola](http://web.mit.edu/phillipi/), [Alexei A. Efros](http://www.eecs.berkeley.edu/~efros/). In [ECCV, 2016](http://arxiv.org/pdf/1603.08511.pdf).
+# Image Colorization
 
-**+ automatic colorization functionality for Real-Time User-Guided Image Colorization with Learned Deep Priors, SIGGRAPH 2017!**
+This project uses a pre-trained deep learning model to colorize black and white images. The model was trained using the **Caffe** framework and is designed to add color information to grayscale images based on patterns it has learned from a large dataset of color images.
 
-**[Sept20 Update]** Since it has been 3-4 years, I converted this repo to support minimal test-time usage in PyTorch. I also added our SIGGRAPH 2017 (it's an interactive method but can also do automatic). See the [Caffe branch](https://github.com/richzhang/colorization/tree/caffe) for the original release.
+## 📌 Project Overview
 
-![Teaser Image](http://richzhang.github.io/colorization/resources/images/teaser4.jpg)
+The **Image Colorization** project takes in a black-and-white (grayscale) image and uses a deep learning model to predict the missing color information, transforming the grayscale image into a colorized version. This process uses the **Caffe** framework and a pre-trained model that learns the mapping from grayscale images to their corresponding color information.
 
-**Clone the repository; install dependencies**
 
-```
-git clone https://github.com/richzhang/colorization.git
-pip install requirements.txt
-```
+## 📁 Table of Contents
 
-**Colorize!** This script will colorize an image. The results should match the images in the `imgs_out` folder.
+- [Installation](#installation)
+- [Usage](#usage)
+- [Evaluation Metrics](#evaluation-metrics)
+- [Example](#example)
 
-```
-python demo_release.py -i imgs/ansel_adams3.jpg
-```
+## 🛠️ Installation
 
-**Model loading in Python** The following loads pretrained colorizers. See [demo_release.py](demo_release.py) for some details on how to run the model. There are some pre and post-processing steps: convert to Lab space, resize to 256x256, colorize, and concatenate to the original full resolution, and convert to RGB.
+### Clone the repository
 
-```python
-import colorizers
-colorizer_eccv16 = colorizers.eccv16().eval()
-colorizer_siggraph17 = colorizers.siggraph17().eval()
+To clone this repository, run the following command:
+
+```bash
+git clone https://github.com/your-username/image-colorization.git
+cd image-colorization
 ```
 
-### Original implementation (Caffe branch)
+### Download Pre-trained Model
+You will need the following files inside a models/ folder:
 
-The original implementation contained train and testing, our network and AlexNet (for representation learning tests), as well as representation learning tests. It is in Caffe and is no longer supported. Please see the [caffe](https://github.com/richzhang/colorization/tree/caffe) branch for it.
+```bash
+colorization_deploy_v2.prototxt
 
-### Citation ###
+colorization_release_v2.caffemodel
 
-If you find these models useful for your resesarch, please cite with these bibtexs.
-
+pts_in_hull.npy
 ```
-@inproceedings{zhang2016colorful,
-  title={Colorful Image Colorization},
-  author={Zhang, Richard and Isola, Phillip and Efros, Alexei A},
-  booktitle={ECCV},
-  year={2016}
-}
+You can find these files in the original repository or from other official model sources.
 
-@article{zhang2017real,
-  title={Real-Time User-Guided Image Colorization with Learned Deep Priors},
-  author={Zhang, Richard and Zhu, Jun-Yan and Isola, Phillip and Geng, Xinyang and Lin, Angela S and Yu, Tianhe and Efros, Alexei A},
-  journal={ACM Transactions on Graphics (TOG)},
-  volume={9},
-  number={4},
-  year={2017},
-  publisher={ACM}
-}
+### Install Dependencies
+Make sure you have Python 3.x installed on your machine. Then, you can install the required dependencies using pip:
+
+```bash
+pip install -r requirements.txt
 ```
 
-### Misc ###
-Contact Richard Zhang at rich.zhang at eecs.berkeley.edu for any questions or comments.
+### Additional Setup for Caffe
+You will also need to install Caffe to use the pre-trained model. Please follow the installation instructions from Caffe's official documentation.
+
+Alternatively, if you prefer to avoid installing Caffe manually, you can use the Python bindings (via cv2.dnn), which are simpler for this particular task.
+
+## ▶️ Usage
+1. Place your grayscale image in the imgs/ folder (or update the INPUT_IMAGE path in the code).
+
+2. Run the script to colorize the image:
+
+```bash
+python colorization.py
+```
+The colorized image will be saved in the imgs_out/ folder.
+
+The script also evaluates the quality of the colorization using two metrics: PSNR (Peak Signal-to-Noise Ratio) and SSIM (Structural Similarity Index).
+
+## 📊 Evaluation Metrics
+
+The script uses the following metrics to evaluate image quality:
+
+1. PSNR: Peak Signal-to-Noise Ratio
+
+2. SSIM: Structural Similarity Index
+
+These compare the predicted colorized image against the original ground truth (color) image, if available.
+
+## 📷 Example
+
+Given a b&w image like this:
+![B&W image](imgs\image1.jpeg)
+
+The model returns an colored image:
+![Colored image](imgs_out\image1_output.jpeg)
+

@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+/colorizers
+
+# Caffe model files (too large for GitHub)
+/models/
+
+# Virtual environment
+venv/
+.env/
+
+# Logs and temp files
+*.log
+*.bak
+*.swp
+
+#demo
+demo_release.py
+
+LICENSE
